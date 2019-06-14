@@ -9,81 +9,123 @@ public:
 	template<typename T>
 	static void QuickSort(std::vector<T>& vec)
 	{
-		InternalQuickSort(vec, 0, vec.size() - 1);
+		InternalQuickSort(vec.data(), 0, vec.size() - 1);
+	}
+
+	template<typename T>
+	static void QuickSort(T* array, size_t size)
+	{
+		InternalQuickSort(array, 0, size - 1);
 	}
 
 	template<typename T>
 	static void MergeSort(std::vector<T>& vec)
 	{
-		InternalMergeSort(vec, 0, vec.size() - 1);
+		InternalMergeSort(vec.data(), 0, vec.size() - 1);
+	}
+
+	template<typename T>
+	static void MergeSort(T* array, size_t size)
+	{
+		InternalMergeSort(array, 0, size - 1);
 	}
 
 	template<typename T>
 	static void ShellSort(std::vector<T>& vec)
 	{
-		InternalShellSort(vec);
+		InternalShellSort(vec.data(), vec.size());
+	}
+
+	template<typename T>
+	static void ShellSort(T* array, size_t size)
+	{
+		InternalShellSort(array, size);
 	}
 
 	template<typename T>
 	static void InsertionSort(std::vector<T>& vec)
 	{
-		InternalInsertionSort(vec);
+		InternalInsertionSort(vec.data(), vec.size());
+	}
+
+	template<typename T>
+	static void InsertionSort(T* array, size_t size)
+	{
+		InternalInsertionSort(array, size);
 	}
 
 	template<typename T>
 	static void SelectionSort(std::vector<T>& vec)
 	{
-		InternalSelectionSort(vec);
+		InternalSelectionSort(vec.data(), vec.size());
+	}
+
+	template<typename T>
+	static void SelectionSort(T* array, size_t size)
+	{
+		InternalSelectionSort(array, size);
 	}
 
 	template<typename T>
 	static void BubbleSort(std::vector<T>& vec)
 	{
-		InternalBubbleSort(vec);
+		InternalBubbleSort(vec.data(), vec.size());
+	}
+
+	template<typename T>
+	static void BubbleSort(T* array, size_t size)
+	{
+		InternalBubbleSort(array, size);
 	}
 
 	template<typename T>
 	static int BinarySearch(std::vector<T>& vec, const T& target)
 	{
-		return InternalBinarySearch(vec, target);
+		return InternalBinarySearch(vec.data(), vec.size() - 1, target);
+	}
+
+	template<typename T>
+	static int BinarySearch(T* array, size_t size, const T& target)
+	{
+		return InternalBinarySearch(array, size - 1, target);
 	}
 private:
 	/*---- RECURSIVE QUICK SORT (AVERAGE TIME COMPLEXITY: O(N LOG N), SPACE COMPLEXITY: O(LOG N)) ----*/
 	template<typename T>
-	static int InternalPartition(std::vector<T>& vec, unsigned int begin, unsigned int end)
+	static int InternalPartition(T* array, unsigned int begin, unsigned int end)
 	{
-		for (int i = begin; i < end; i++)
+		for (unsigned int i = begin; i < end; i++)
 		{
-			if (vec[i] < vec[end])
+			if (array[i] < array[end])
 			{
-				std::swap(vec[i], vec[begin++]);
+				std::swap(array[i], array[begin++]);
 			}
 		}
 
-		std::swap(vec[begin], vec[end]);
+		std::swap(array[begin], array[end]);
 		return begin;
 	}
 
 	template<typename T>
-	static void InternalQuickSort(std::vector<T>& vec, unsigned int begin, unsigned int end)
+	static void InternalQuickSort(T* array, unsigned int begin, unsigned int end)
 	{
 		if (begin < end)
 		{
-			int pivot = InternalPartition(vec, begin, end);
+			int pivot = InternalPartition(array, begin, end);
 
-			InternalQuickSort(vec, begin, pivot - 1);
-			InternalQuickSort(vec, pivot + 1, end);
+			InternalQuickSort(array, begin, pivot - 1);
+			InternalQuickSort(array, pivot + 1, end);
 		}
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
 	/*----   RECURSIVE MERGE SORT (AVERAGE TIME COMPLEXITY: O(N LOG N), SPACE COMPLEXITY: O(N))   ----*/
 	template<typename T>
-	static void InternalMerge(std::vector<T>& vec, unsigned int begin, int middle, unsigned int end)
+	static void InternalMerge(T* array, unsigned int begin, int middle, unsigned int end)
 	{
 		unsigned int leftIndex = 0;
 		unsigned int rightIndex = 0;
-		unsigned int vecIndex = begin;
+		unsigned int arrayIndex = begin;
 
 		unsigned int leftArraySize = middle - begin + 1;
 		unsigned int rightArraySize = end - middle;
@@ -92,61 +134,61 @@ private:
 		T* rightArray = new T[rightArraySize];
 
 		for (unsigned int i = 0; i < leftArraySize; i++)
-			leftArray[i] = vec[begin + i];
+			leftArray[i] = array[begin + i];
 		for (unsigned int i = 0; i < rightArraySize; i++)
-			rightArray[i] = vec[middle + i + 1];
+			rightArray[i] = array[middle + i + 1];
 
 		while (leftIndex < leftArraySize && rightIndex < rightArraySize)
 		{
 			if (leftArray[leftIndex] <= rightArray[rightIndex])
-				vec[vecIndex++] = leftArray[leftIndex++];
+				array[arrayIndex++] = leftArray[leftIndex++];
 			else
-				vec[vecIndex++] = rightArray[rightIndex++];
+				array[arrayIndex++] = rightArray[rightIndex++];
 		}
 
 		while (leftIndex < leftArraySize)
-			vec[vecIndex++] = leftArray[leftIndex++];
+			array[arrayIndex++] = leftArray[leftIndex++];
 		while (rightIndex < rightArraySize)
-			vec[vecIndex++] = rightArray[rightIndex++];
+			array[arrayIndex++] = rightArray[rightIndex++];
 
 		delete[] leftArray;
 		delete[] rightArray;
 	}
 	template<typename T>
-	static void InternalMergeSort(std::vector<T>& vec, unsigned int begin, unsigned int end)
+	static void InternalMergeSort(T* array, unsigned int begin, unsigned int end)
 	{
 		if (begin < end)
 		{
 			int middle = (begin + end) / 2;
 
-			InternalMergeSort(vec, begin, middle);
-			InternalMergeSort(vec, middle + 1, end);
+			InternalMergeSort(array, begin, middle);
+			InternalMergeSort(array, middle + 1, end);
 
-			InternalMerge(vec, begin, middle, end);
+			InternalMerge(array, begin, middle, end);
 		}
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
 	/*----      SHELL SORT (AVERAGE TIME COMPLEXITY: O(N (LOG N)^2), SPACE COMPLEXITY: O(1))      ----*/
 	template<typename T>
-	static void InternalShellSort(std::vector<T>& vec)
+	static void InternalShellSort(T* array, size_t size)
 	{
 		unsigned int j;
 		T key;
 
-		for (unsigned int gap = vec.size() / 2; gap > 0; gap /= 2)
+		for (unsigned int gap = size / 2; gap > 0; gap /= 2)
 		{
-			for (unsigned int i = gap; i < vec.size(); i++)
+			for (unsigned int i = gap; i < size; i++)
 			{
 				j = i;
-				key = vec[i];
+				key = array[i];
 
-				while (j >= gap && vec[j - gap] > key)
+				while (j >= gap && array[j - gap] > key)
 				{
-					vec[j] = vec[j - gap];
+					array[j] = array[j - gap];
 					j -= gap;
 				}
-				vec[j] = key;
+				array[j] = key;
 			}
 		}
 	}
@@ -154,41 +196,41 @@ private:
 
 	/*----        INSERTION SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))        ----*/
 	template<typename T>
-	static void InternalInsertionSort(std::vector<T>& vec)
+	static void InternalInsertionSort(T* array, size_t size)
 	{
 		unsigned int j;
 		T key;
 
-		for (unsigned int i = 0; i < vec.size(); i++)
+		for (unsigned int i = 0; i < size; i++)
 		{
 			j = i;
-			key = vec[i];
+			key = array[i];
 
-			while (j > 0 && vec[j - 1] > key)
+			while (j > 0 && array[j - 1] > key)
 			{
-				vec[j] = vec[j - 1];
+				array[j] = array[j - 1];
 				--j;
 			}
-			vec[j] = key;
+			array[j] = key;
 		}
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
 	/*----        SELECTION SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))        ----*/
 	template<typename T>
-	static void InternalSelectionSort(std::vector<T>& vec)
+	static void InternalSelectionSort(T* array, size_t size)
 	{
 		unsigned int lastSortedIndex = 0;
 		unsigned int currentSmallestIndex = 0;
 
-		while (lastSortedIndex != vec.size() - 1)
+		while (lastSortedIndex != size - 1)
 		{
-			for (unsigned int i = lastSortedIndex + 1; i < vec.size(); i++)
+			for (unsigned int i = lastSortedIndex + 1; i < size; i++)
 			{
-				if (vec[i] < vec[currentSmallestIndex])
+				if (array[i] < array[currentSmallestIndex])
 					currentSmallestIndex = i;
 			}
-			std::swap(vec[currentSmallestIndex], vec[lastSortedIndex]);
+			std::swap(array[currentSmallestIndex], array[lastSortedIndex]);
 
 			lastSortedIndex++;
 			currentSmallestIndex = lastSortedIndex;
@@ -198,10 +240,10 @@ private:
 
 	/*----         BUBBLE SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))          ----*/
 	template<typename T>
-	static void InternalBubbleSort(std::vector<T>& vec)
+	static void InternalBubbleSort(T* array, size_t size)
 	{
 		bool unsorted = true;
-		unsigned int maxSortedIndex = vec.size();
+		unsigned int maxSortedIndex = size;
 
 		while (unsorted)
 		{
@@ -209,10 +251,10 @@ private:
 
 			for (unsigned int i = 1; i < maxSortedIndex; i++)
 			{
-				if (vec[i] < vec[i - 1])
+				if (array[i] < array[i - 1])
 				{
 					unsorted = true;
-					std::swap(vec[i], vec[i - 1]);
+					std::swap(array[i], array[i - 1]);
 				}
 			}
 
@@ -223,19 +265,19 @@ private:
 
 	/*----                    BINARY SEARCH (AVERAGE TIME COMPLEXITY: O(LOG N)                    ----*/
 	template<typename T>
-	static int InternalBinarySearch(std::vector<T>& vec, const T& target)
+	static int InternalBinarySearch(T* array, size_t size, const T& target)
 	{
 		int begin = 0;
-		int end = (int)vec.size() - 1;
+		int end = (int)size;
 		unsigned int middle;
 
 		while (begin <= end)
 		{
 			middle = (begin + end) / 2;
 
-			if (vec[middle] == target)
+			if (array[middle] == target)
 				return middle;
-			else if (vec[middle] < target)
+			else if (array[middle] < target)
 				begin = middle + 1;
 			else
 				end = middle - 1;
