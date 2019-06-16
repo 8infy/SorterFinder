@@ -318,6 +318,7 @@ private:
 	static std::vector<T> InternalFindUnion(T* array1, size_t size1, T* array2, size_t size2)
 	{
 		std::vector<T> result;
+		result.reserve(size1 >= size2 ? size1 : size2);
 
 		unsigned int i = 0;
 		unsigned int j = 0;
@@ -349,12 +350,11 @@ private:
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
-	/*----              FINDS THE INTERSECTION OF 2 SORTED ARRAYS (LINEAR COMPLEXITY)             ----*/
+	/*------------------FINDS THE INTERSECTION OF 2 SORTED ARRAYS (LINEAR COMPLEXITY)-----------------*/
 	template<typename T>
 	static std::vector<T> InternalFindIntersection(T* array1, size_t size1, T* array2, size_t size2)
 	{
 		std::vector<T> result;
-		result.reserve(size1 >= size2 ? size1 : size2);
 
 		unsigned int i = 0;
 		unsigned int j = 0;
@@ -379,4 +379,5 @@ private:
 
 		return result;
 	}
+	/*------------------------------------------------------------------------------------------------*/
 };
