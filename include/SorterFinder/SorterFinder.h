@@ -89,8 +89,34 @@ public:
 	{
 		return InternalBinarySearch(array, size - 1, target);
 	}
+
+	template<typename T>
+	static std::vector<T> FindUnion(std::vector<T>& vec1, std::vector<T>& vec2)
+	{
+		return InternalFindUnion(vec1.data(), vec1.size(), vec2.data(), vec2.size());
+	}
+
+	template<typename T>
+	static std::vector<T> FindUnion(T* array1, size_t size1, T* array2, size_t size2)
+	{
+		return InternalFindUnion(array1, size1, array2, size2);
+	}
+
+	template<typename T>
+	static std::vector<T> FindIntersection(std::vector<T>& vec1, std::vector<T>& vec2)
+	{
+		return InternalFindIntersection(vec1.data(), vec1.size(), vec2.data(), vec2.size());
+	}
+
+	template<typename T>
+	static std::vector<T> FindIntersection(T* array1, size_t size1, T* array2, size_t size2)
+	{
+		return InternalFindIntersection(array1, size1, array2, size2);
+	}
+
+	SorterFinder() = delete;
 private:
-	/*---- RECURSIVE QUICK SORT (AVERAGE TIME COMPLEXITY: O(N LOG N), SPACE COMPLEXITY: O(LOG N)) ----*/
+	/*-----RECURSIVE QUICK SORT (AVERAGE TIME COMPLEXITY: O(N LOG N), SPACE COMPLEXITY: O(LOG N))-----*/
 	template<typename T>
 	static int InternalPartition(T* array, unsigned int begin, unsigned int end)
 	{
@@ -119,7 +145,7 @@ private:
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
-	/*----   RECURSIVE MERGE SORT (AVERAGE TIME COMPLEXITY: O(N LOG N), SPACE COMPLEXITY: O(N))   ----*/
+	/*-------RECURSIVE MERGE SORT (AVERAGE TIME COMPLEXITY: O(N LOG N), SPACE COMPLEXITY: O(N))-------*/
 	template<typename T>
 	static void InternalMerge(T* array, unsigned int begin, int middle, unsigned int end)
 	{
@@ -169,7 +195,7 @@ private:
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
-	/*----      SHELL SORT (AVERAGE TIME COMPLEXITY: O(N (LOG N)^2), SPACE COMPLEXITY: O(1))      ----*/
+	/*----------SHELL SORT (AVERAGE TIME COMPLEXITY: O(N (LOG N)^2), SPACE COMPLEXITY: O(1))----------*/
 	template<typename T>
 	static void InternalShellSort(T* array, size_t size)
 	{
@@ -194,7 +220,7 @@ private:
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
-	/*----        INSERTION SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))        ----*/
+	/*------------INSERTION SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))------------*/
 	template<typename T>
 	static void InternalInsertionSort(T* array, size_t size)
 	{
@@ -216,7 +242,7 @@ private:
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
-	/*----        SELECTION SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))        ----*/
+	/*------------SELECTION SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))------------*/
 	template<typename T>
 	static void InternalSelectionSort(T* array, size_t size)
 	{
@@ -238,7 +264,7 @@ private:
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
-	/*----         BUBBLE SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))          ----*/
+	/*-------------BUBBLE SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))--------------*/
 	template<typename T>
 	static void InternalBubbleSort(T* array, size_t size)
 	{
@@ -263,7 +289,7 @@ private:
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
-	/*----                    BINARY SEARCH (AVERAGE TIME COMPLEXITY: O(LOG N)                    ----*/
+	/*------------------------BINARY SEARCH (AVERAGE TIME COMPLEXITY: O(LOG N)------------------------*/
 	template<typename T>
 	static int InternalBinarySearch(T* array, size_t size, const T& target)
 	{
@@ -286,4 +312,71 @@ private:
 		return -1;
 	}
 	/*------------------------------------------------------------------------------------------------*/
+
+	/*---------------------FINDS THE UNION OF 2 SORTED ARRAYS (LINEAR COMPLEXITY)---------------------*/
+	template<typename T>
+	static std::vector<T> InternalFindUnion(T* array1, size_t size1, T* array2, size_t size2)
+	{
+		std::vector<T> result;
+
+		unsigned int i = 0;
+		unsigned int j = 0;
+
+		while (i < size1 && j < size2)
+		{
+			while (i + 1 < size1 && array1[i] == array1[i + 1])
+				i++;
+			while (j + 1 < size2 && array2[j] == array2[j + 1])
+				j++;
+
+			if (array1[i] < array2[j])
+				result.push_back(array1[i++]);
+			else if (array2[j] < array1[i])
+				result.push_back(array2[j++]);
+			else
+			{
+				result.push_back(array1[i++]);
+				j++;
+			}
+		}
+
+		while (i < size1)
+			result.push_back(array1[i++]);
+		while (j < size2)
+			result.push_back(array2[j++]);
+
+		return result;
+	}
+	/*------------------------------------------------------------------------------------------------*/
+
+	/*----              FINDS THE INTERSECTION OF 2 SORTED ARRAYS (LINEAR COMPLEXITY)             ----*/
+	template<typename T>
+	static std::vector<T> InternalFindIntersection(T* array1, size_t size1, T* array2, size_t size2)
+	{
+		std::vector<T> result;
+		result.reserve(size1 >= size2 ? size1 : size2);
+
+		unsigned int i = 0;
+		unsigned int j = 0;
+
+		while (i < size1 && j < size2)
+		{
+			while (i + 1 < size1 && array1[i] == array1[i + 1])
+				i++;
+			while (j + 1 < size2 && array2[j] == array2[j + 1])
+				j++;
+
+			if (array1[i] < array2[j])
+				i++;
+			else if (array2[j] < array1[i])
+				j++;
+			else
+			{
+				result.push_back(array1[i++]);
+				j++;
+			}
+		}
+
+		return result;
+	}
 };
