@@ -11,7 +11,7 @@ A header-only library, which sorts your arrays with all kinds of different sorti
 - `SorterFinder::InsertionSort(...)` -> Insertion sort, average time complexity: O(n^2), space complexity O(1).
 - `SorterFinder::SelectionSort(...)` -> Selection sort, average time complexity: O(n^2), space complexity O(1).
 - `SorterFinder::BubbleSort(...)` -> Bubble sort, average time complexity: O(n^2), space complexity O(1).
-## Searchin algortihms:
+## Searching algortihms:
 - `SorterFinder::BinarySearch(...)` -> Binary search, average time complexity: O(log n), space complexity O(1). Only works on sorted arrays/vectors.
 ## Intersection/Union:
 - `SorterFinder::FindUnion(...)` -> Finds the union of two sorted arrays/vectors. Returns the result in a vector. Time complexity: O(n).
