@@ -6,78 +6,200 @@
 class SorterFinder
 {
 public:
-	template<typename T>
-	static void QuickSort(std::vector<T>& vec)
+
+	/*--------------------------------------QUICK SORT OVERLOADS-------------------------------------*/
+	template<typename T, typename Pred>
+	static void QuickSort(T* array, size_t size, Pred predicate)
 	{
-		InternalQuickSort(vec.data(), 0, vec.size() - 1);
+		InternalQuickSort(array, 0, size - 1, predicate);
 	}
 
 	template<typename T>
 	static void QuickSort(T* array, size_t size)
 	{
-		InternalQuickSort(array, 0, size - 1);
+		QuickSort(array, size, [](const T& x, const T& y)
+		{
+			if (x < y)
+				return true;
+			else
+				return false;
+		});
+	}
+
+	template<typename T, typename Pred>
+	static void QuickSort(std::vector<T>& vec, Pred predicate)
+	{
+		QuickSort(vec.data(), vec.size(), predicate);
 	}
 
 	template<typename T>
-	static void MergeSort(std::vector<T>& vec)
+	static void QuickSort(std::vector<T>& vec)
 	{
-		InternalMergeSort(vec.data(), 0, vec.size() - 1);
+		QuickSort(vec.data(), vec.size());
+	}
+	/*------------------------------------------------------------------------------------------------*/
+
+	/*-------------------------------------MERGE SORT OVERLOADS---------------------------------------*/
+	template<typename T, typename Pred>
+	static void MergeSort(T* array, size_t size, Pred predicate)
+	{
+		InternalMergeSort(array, 0, size - 1, predicate);
 	}
 
 	template<typename T>
 	static void MergeSort(T* array, size_t size)
 	{
-		InternalMergeSort(array, 0, size - 1);
+		MergeSort(array, size, [](const T& x, const T& y)
+		{
+			if (x < y)
+				return true;
+			else
+				return false;
+		});
+	}
+
+	template<typename T, typename Pred>
+	static void MergeSort(std::vector<T>& vec, Pred predicate)
+	{
+		MergeSort(vec.data(), vec.size(), predicate);
 	}
 
 	template<typename T>
-	static void ShellSort(std::vector<T>& vec)
+	static void MergeSort(std::vector<T>& vec)
 	{
-		InternalShellSort(vec.data(), vec.size());
+		MergeSort(vec.data(), vec.size());
+	}
+	/*------------------------------------------------------------------------------------------------*/
+
+	/*-------------------------------------SHELL SORT OVERLOADS---------------------------------------*/
+	template<typename T, typename Pred>
+	static void ShellSort(T* array, size_t size, Pred predicate)
+	{
+		InternalShellSort(array, size, predicate);
 	}
 
 	template<typename T>
 	static void ShellSort(T* array, size_t size)
 	{
-		InternalShellSort(array, size);
+		ShellSort(array, size, [](const T& x, const T& y)
+		{
+			if (x < y)
+				return true;
+			else
+				return false;
+		});
+	}
+
+	template<typename T, typename Pred>
+	static void ShellSort(std::vector<T>& vec, Pred predicate)
+	{
+		ShellSort(vec.data(), vec.size(), predicate);
 	}
 
 	template<typename T>
-	static void InsertionSort(std::vector<T>& vec)
+	static void ShellSort(std::vector<T>& vec)
 	{
-		InternalInsertionSort(vec.data(), vec.size());
+		ShellSort(vec.data(), vec.size());
+	}
+	/*------------------------------------------------------------------------------------------------*/
+
+	/*------------------------------------INSERTION SORT OVERLOADS------------------------------------*/
+	template<typename T, typename Pred>
+	static void InsertionSort(T* array, size_t size, Pred predicate)
+	{
+		InternalInsertionSort(array, size, predicate);
 	}
 
 	template<typename T>
 	static void InsertionSort(T* array, size_t size)
 	{
-		InternalInsertionSort(array, size);
+		InsertionSort(array, size, [](const T& x, const T& y)
+		{
+			if (x < y)
+				return true;
+			else
+				return false;
+		});
+	}
+
+	template<typename T, typename Pred>
+	static void InsertionSort(std::vector<T>& vec, Pred predicate)
+	{
+		InsertionSort(vec.data(), vec.size(), predicate);
 	}
 
 	template<typename T>
-	static void SelectionSort(std::vector<T>& vec)
+	static void InsertionSort(std::vector<T>& vec)
 	{
-		InternalSelectionSort(vec.data(), vec.size());
+		InsertionSort(vec.data(), vec.size());
+	}
+	/*------------------------------------------------------------------------------------------------*/
+
+	/*------------------------------------SELECTION SORT OVERLOADS------------------------------------*/
+	template<typename T, typename Pred>
+	static void SelectionSort(T* array, size_t size, Pred predicate)
+	{
+		InternalSelectionSort(array, size, predicate);
 	}
 
 	template<typename T>
 	static void SelectionSort(T* array, size_t size)
 	{
-		InternalSelectionSort(array, size);
+		SelectionSort(array, size, [](const T& x, const T& y)
+		{
+			if (x < y)
+				return true;
+			else
+				return false;
+		});
+	}
+
+	template<typename T, typename Pred>
+	static void SelectionSort(std::vector<T>& vec, Pred predicate)
+	{
+		SelectionSort(vec.data(), vec.size(), predicate);
 	}
 
 	template<typename T>
-	static void BubbleSort(std::vector<T>& vec)
+	static void SelectionSort(std::vector<T>& vec)
 	{
-		InternalBubbleSort(vec.data(), vec.size());
+		SelectionSort(vec.data(), vec.size());
+	}
+	/*------------------------------------------------------------------------------------------------*/
+
+	/*----------------------------------------BUBBLE SORT OVERLOADS-----------------------------------*/
+	template<typename T, typename Pred>
+	static void BubbleSort(T* array, size_t size, Pred predicate)
+	{
+		InternalBubbleSort(array, size, predicate);
 	}
 
 	template<typename T>
 	static void BubbleSort(T* array, size_t size)
 	{
-		InternalBubbleSort(array, size);
+		BubbleSort(array, size, [](const T& x, const T& y)
+		{
+			if (x < y)
+				return true;
+			else
+				return false;
+		});
 	}
 
+	template<typename T, typename Pred>
+	static void BubbleSort(std::vector<T>& vec, Pred predicate)
+	{
+		BubbleSort(vec.data(), vec.size(), predicate);
+	}
+
+	template<typename T>
+	static void BubbleSort(std::vector<T>& vec)
+	{
+		BubbleSort(vec.data(), vec.size());
+	}
+	/*------------------------------------------------------------------------------------------------*/
+
+	/*-------------------------------------BINARY SEARCH OVERLOADS------------------------------------*/
 	template<typename T>
 	static int BinarySearch(std::vector<T>& vec, const T& target)
 	{
@@ -89,7 +211,9 @@ public:
 	{
 		return InternalBinarySearch(array, size - 1, target);
 	}
+	/*------------------------------------------------------------------------------------------------*/
 
+	/*-------------------------------------FIND UNION OVERLOADS---------------------------------------*/
 	template<typename T>
 	static std::vector<T> FindUnion(std::vector<T>& vec1, std::vector<T>& vec2)
 	{
@@ -101,7 +225,9 @@ public:
 	{
 		return InternalFindUnion(array1, size1, array2, size2);
 	}
+	/*------------------------------------------------------------------------------------------------*/
 
+	/*-------------------------------------FIND INTERSECTION OVERLOADS--------------------------------*/
 	template<typename T>
 	static std::vector<T> FindIntersection(std::vector<T>& vec1, std::vector<T>& vec2)
 	{
@@ -113,16 +239,17 @@ public:
 	{
 		return InternalFindIntersection(array1, size1, array2, size2);
 	}
+	/*------------------------------------------------------------------------------------------------*/
 
 	SorterFinder() = delete;
 private:
 	/*-----RECURSIVE QUICK SORT (AVERAGE TIME COMPLEXITY: O(N LOG N), SPACE COMPLEXITY: O(LOG N))-----*/
-	template<typename T>
-	static int InternalPartition(T* array, unsigned int begin, unsigned int end)
+	template<typename T, typename Pred>
+	static int InternalPartition(T* array, unsigned int begin, unsigned int end, Pred predicate)
 	{
 		for (unsigned int i = begin; i < end; i++)
 		{
-			if (array[i] < array[end])
+			if (predicate(array[i], array[end]))
 			{
 				std::swap(array[i], array[begin++]);
 			}
@@ -132,22 +259,22 @@ private:
 		return begin;
 	}
 
-	template<typename T>
-	static void InternalQuickSort(T* array, unsigned int begin, unsigned int end)
+	template<typename T, typename Pred>
+	static void InternalQuickSort(T* array, unsigned int begin, unsigned int end, Pred predicate)
 	{
 		if (begin < end)
 		{
-			int pivot = InternalPartition(array, begin, end);
+			int pivot = InternalPartition(array, begin, end, predicate);
 
-			InternalQuickSort(array, begin, pivot - 1);
-			InternalQuickSort(array, pivot + 1, end);
+			InternalQuickSort(array, begin, pivot - 1, predicate);
+			InternalQuickSort(array, pivot + 1, end, predicate);
 		}
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
 	/*-------RECURSIVE MERGE SORT (AVERAGE TIME COMPLEXITY: O(N LOG N), SPACE COMPLEXITY: O(N))-------*/
-	template<typename T>
-	static void InternalMerge(T* array, unsigned int begin, int middle, unsigned int end)
+	template<typename T, typename Pred>
+	static void InternalMerge(T* array, unsigned int begin, int middle, unsigned int end, Pred predicate)
 	{
 		unsigned int leftIndex = 0;
 		unsigned int rightIndex = 0;
@@ -166,7 +293,7 @@ private:
 
 		while (leftIndex < leftArraySize && rightIndex < rightArraySize)
 		{
-			if (leftArray[leftIndex] <= rightArray[rightIndex])
+			if (predicate(leftArray[leftIndex], rightArray[rightIndex]))
 				array[arrayIndex++] = leftArray[leftIndex++];
 			else
 				array[arrayIndex++] = rightArray[rightIndex++];
@@ -180,24 +307,24 @@ private:
 		delete[] leftArray;
 		delete[] rightArray;
 	}
-	template<typename T>
-	static void InternalMergeSort(T* array, unsigned int begin, unsigned int end)
+	template<typename T, typename Pred>
+	static void InternalMergeSort(T* array, unsigned int begin, unsigned int end, Pred predicate)
 	{
 		if (begin < end)
 		{
 			int middle = (begin + end) / 2;
 
-			InternalMergeSort(array, begin, middle);
-			InternalMergeSort(array, middle + 1, end);
+			InternalMergeSort(array, begin, middle, predicate);
+			InternalMergeSort(array, middle + 1, end, predicate);
 
-			InternalMerge(array, begin, middle, end);
+			InternalMerge(array, begin, middle, end, predicate);
 		}
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
 	/*----------SHELL SORT (AVERAGE TIME COMPLEXITY: O(N (LOG N)^2), SPACE COMPLEXITY: O(1))----------*/
-	template<typename T>
-	static void InternalShellSort(T* array, size_t size)
+	template<typename T, typename Pred>
+	static void InternalShellSort(T* array, size_t size, Pred predicate)
 	{
 		unsigned int j;
 		T key;
@@ -209,7 +336,7 @@ private:
 				j = i;
 				key = array[i];
 
-				while (j >= gap && array[j - gap] > key)
+				while (j >= gap && predicate(key, array[j - gap]))
 				{
 					array[j] = array[j - gap];
 					j -= gap;
@@ -221,8 +348,8 @@ private:
 	/*------------------------------------------------------------------------------------------------*/
 
 	/*------------INSERTION SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))------------*/
-	template<typename T>
-	static void InternalInsertionSort(T* array, size_t size)
+	template<typename T, typename Pred>
+	static void InternalInsertionSort(T* array, size_t size, Pred predicate)
 	{
 		unsigned int j;
 		T key;
@@ -232,7 +359,7 @@ private:
 			j = i;
 			key = array[i];
 
-			while (j > 0 && array[j - 1] > key)
+			while (j > 0 && predicate(key, array[j - 1]))
 			{
 				array[j] = array[j - 1];
 				--j;
@@ -243,23 +370,23 @@ private:
 	/*------------------------------------------------------------------------------------------------*/
 
 	/*------------SELECTION SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))------------*/
-	template<typename T>
-	static void InternalSelectionSort(T* array, size_t size)
+	template<typename T, typename Pred>
+	static void InternalSelectionSort(T* array, size_t size, Pred predicate)
 	{
 		unsigned int lastSortedIndex = 0;
-		unsigned int currentSmallestIndex = 0;
+		unsigned int currentMostSuitableIndex = 0;
 
 		while (lastSortedIndex != size - 1)
 		{
 			for (unsigned int i = lastSortedIndex + 1; i < size; i++)
 			{
-				if (array[i] < array[currentSmallestIndex])
-					currentSmallestIndex = i;
+				if (predicate(array[i], array[currentMostSuitableIndex]))
+					currentMostSuitableIndex = i;
 			}
-			std::swap(array[currentSmallestIndex], array[lastSortedIndex]);
+			std::swap(array[currentMostSuitableIndex], array[lastSortedIndex]);
 
 			lastSortedIndex++;
-			currentSmallestIndex = lastSortedIndex;
+			currentMostSuitableIndex = lastSortedIndex;
 		}
 	}
 	/*------------------------------------------------------------------------------------------------*/
@@ -277,7 +404,7 @@ private:
 
 			for (unsigned int i = 1; i < maxSortedIndex; i++)
 			{
-				if (array[i] < array[i - 1])
+				if (predicate(array[i], array[i - 1]))
 				{
 					unsorted = true;
 					std::swap(array[i], array[i - 1]);
@@ -289,7 +416,7 @@ private:
 	}
 	/*------------------------------------------------------------------------------------------------*/
 
-	/*------------------------BINARY SEARCH (AVERAGE TIME COMPLEXITY: O(LOG N)------------------------*/
+	/*------------------------BINARY SEARCH (AVERAGE TIME COMPLEXITY: O(LOG N))-----------------------*/
 	template<typename T>
 	static int InternalBinarySearch(T* array, size_t size, const T& target)
 	{
