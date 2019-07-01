@@ -1,9 +1,20 @@
 # SorterFinder
 A header-only library, which sorts your arrays with all kinds of different sorting algorithms. Also supports some searching algorithms + union/intersection. Intended as an educational tool. Feel free to change/use the code however you want.
 ---
-## Note: All public member functions are available in 2 overloads: 
-- `ExampleFunction(std::vector<T>& vec)` -> Takes in a vector of type T.
-- `ExampleFunction(T* array, size_t size)` -> Takes in an array and its corresponding size.
+## Each sorting member function is available in 4 overloads: 
+- `SorterFinder::QuickSort(std::vector<T>& vec)` -> Takes in a vector of type T.
+- `SorterFinder::QuickSort(std::vector<T>& vec, Pred predicate)` -> Takes in a vector of type T, as well as a predicate (function/functor/lambda/any callable).
+- `SorterFinder::QuickSort(T* array, size_t size)` -> Takes in an array and its corresponding size.
+- `SorterFinder::QuickSort(T* array, size_t size, Pred predicate)` -> Takes in an array and its corresponding size, as well as a predicate (function/functor/lambda/any callable).
+---
+## Note: All sorting functions do the sorting in ascending order by default unless you provide a predicate of your own.
+## Example of a predicate:
+`bool descending(int x, int y) { if(x > y) return true; else return false; }`    
+`myVec` before sorting: 1, 2, 3.  
+`SorterFinder::QuickSort(myVector, descending);`  
+`myVec` after sorting: 3, 2, 1.
+
+---
 ## Currently supported sorting algorithms:
 - `SorterFinder::QuickSort(...)` -> Recursive quick sort, average time complexity: O(n(log n)), space complexity O(log n).
 - `SorterFinder::MergeSort(...)` -> Recursive merge sort, average time complexity: O(n(log n)), space complexity O(n).
