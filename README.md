@@ -9,9 +9,9 @@ A header-only library, which sorts your arrays with all kinds of different sorti
 ---
 ## Note: All sorting functions do the sorting in ascending order by default unless you provide a predicate of your own.
 ## Example of a predicate:
-`bool descending(int x, int y) { if(x > y) return true; else return false; }`    
+`bool descending(int x, int y) { return x > y; }`    
 `myVec` before sorting: 1, 2, 3.  
-`SorterFinder::QuickSort(myVector, descending);`  
+`SorterFinder::QuickSort(myVec, descending);`  
 `myVec` after sorting: 3, 2, 1.
 
 ---
