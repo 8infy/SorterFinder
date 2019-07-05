@@ -19,10 +19,7 @@ public:
 	{
 		QuickSort(array, size, [](const T& x, const T& y)
 		{
-			if (x < y)
-				return true;
-			else
-				return false;
+			return x < y;
 		});
 	}
 
@@ -51,10 +48,7 @@ public:
 	{
 		MergeSort(array, size, [](const T& x, const T& y)
 		{
-			if (x < y)
-				return true;
-			else
-				return false;
+			return x < y;
 		});
 	}
 
@@ -83,10 +77,7 @@ public:
 	{
 		ShellSort(array, size, [](const T& x, const T& y)
 		{
-			if (x < y)
-				return true;
-			else
-				return false;
+			return x < y;
 		});
 	}
 
@@ -115,10 +106,7 @@ public:
 	{
 		InsertionSort(array, size, [](const T& x, const T& y)
 		{
-			if (x < y)
-				return true;
-			else
-				return false;
+			return x < y;
 		});
 	}
 
@@ -147,10 +135,7 @@ public:
 	{
 		SelectionSort(array, size, [](const T& x, const T& y)
 		{
-			if (x < y)
-				return true;
-			else
-				return false;
+			return x < y;
 		});
 	}
 
@@ -179,10 +164,7 @@ public:
 	{
 		BubbleSort(array, size, [](const T& x, const T& y)
 		{
-			if (x < y)
-				return true;
-			else
-				return false;
+			return x < y;
 		});
 	}
 
