@@ -1,4 +1,5 @@
-# SorterFinder
+# SorterFinder | [![Build status](https://ci.appveyor.com/api/projects/status/3qwf1bvnfsgwwqj0?svg=true)](https://ci.appveyor.com/project/8infy/sorterfinder) | [![Codacy Badge](https://api.codacy.com/project/badge/Grade/99d4bef3b3ea481e835d017dc3057607)](https://www.codacy.com/app/8infy/SorterFinder?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8infy/SorterFinder&amp;utm_campaign=Badge_Grade) |
+
 ## A header-only library, which sorts your arrays with all kinds of different sorting algorithms. Also supports some searching algorithms + union/intersection. Intended as an educational tool. Feel free to change/use the code however you want
 ---
 ## Each sorting member function is available in 4 overloads 
