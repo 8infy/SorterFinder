@@ -1,5 +1,5 @@
 # SorterFinder
-A header-only library, which sorts your arrays with all kinds of different sorting algorithms. Also supports some searching algorithms + union/intersection. Intended as an educational tool. Feel free to change/use the code however you want.
+## A header-only library, which sorts your arrays with all kinds of different sorting algorithms. Also supports some searching algorithms + union/intersection. Intended as an educational tool. Feel free to change/use the code however you want
 ---
 ## Each sorting member function is available in 4 overloads 
 -   `SorterFinder::QuickSort(std::vector<T>& vec)` -> Takes in a vector of type T.
@@ -7,7 +7,7 @@ A header-only library, which sorts your arrays with all kinds of different sorti
 -   `SorterFinder::QuickSort(T* array, size_t size)` -> Takes in an array and its corresponding size.
 -   `SorterFinder::QuickSort(T* array, size_t size, Pred predicate)` -> Takes in an array and its corresponding size, as well as a predicate (function/functor/lambda/any callable).
 ---
-## Note: All sorting functions do the sorting in ascending order by default unless you provide a predicate of your own.
+## Note: All sorting functions do the sorting in ascending order by default unless you provide a predicate of your own
 ## Example of a predicate
 `bool descending(int x, int y) { return x > y; }`    
 `myVec` before sorting: 1, 2, 3.  
