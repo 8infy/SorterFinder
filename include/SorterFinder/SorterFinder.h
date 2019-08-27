@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef> // size_t
 #include <utility>
 #include <vector>
 
@@ -11,7 +12,7 @@ public:
 	template<typename T, typename Pred>
 	static void QuickSort(T* array, size_t size, Pred predicate)
 	{
-		InternalQuickSort(array, 0, size - 1, predicate);
+		InternalQuickSort(array, 0, static_cast<int>(size - 1), predicate);
 	}
 
 	template<typename T>
@@ -227,9 +228,9 @@ public:
 private:
 	/*-----RECURSIVE QUICK SORT (AVERAGE TIME COMPLEXITY: O(N LOG N), SPACE COMPLEXITY: O(LOG N))-----*/
 	template<typename T, typename Pred>
-	static int InternalPartition(T* array, unsigned int begin, unsigned int end, Pred predicate)
+	static int InternalPartition(T* array, int begin, int end, Pred predicate)
 	{
-		for (unsigned int i = begin; i < end; i++)
+		for (int i = begin; i < end; i++)
 		{
 			if (predicate(array[i], array[end]))
 			{
@@ -242,7 +243,7 @@ private:
 	}
 
 	template<typename T, typename Pred>
-	static void InternalQuickSort(T* array, unsigned int begin, unsigned int end, Pred predicate)
+	static void InternalQuickSort(T* array, int begin, int end, Pred predicate)
 	{
 		if (begin < end)
 		{
@@ -256,21 +257,21 @@ private:
 
 	/*-------RECURSIVE MERGE SORT (AVERAGE TIME COMPLEXITY: O(N LOG N), SPACE COMPLEXITY: O(N))-------*/
 	template<typename T, typename Pred>
-	static void InternalMerge(T* array, unsigned int begin, int middle, unsigned int end, Pred predicate)
+	static void InternalMerge(T* array, size_t begin, int middle, size_t end, Pred predicate)
 	{
-		unsigned int leftIndex = 0;
-		unsigned int rightIndex = 0;
-		unsigned int arrayIndex = begin;
+		size_t leftIndex = 0;
+		size_t rightIndex = 0;
+		size_t arrayIndex = begin;
 
-		unsigned int leftArraySize = middle - begin + 1;
-		unsigned int rightArraySize = end - middle;
+		size_t leftArraySize = middle - begin + 1;
+		size_t rightArraySize = end - middle;
 
 		T* leftArray = new T[leftArraySize];
 		T* rightArray = new T[rightArraySize];
 
-		for (unsigned int i = 0; i < leftArraySize; i++)
+		for (size_t i = 0; i < leftArraySize; i++)
 			leftArray[i] = array[begin + i];
-		for (unsigned int i = 0; i < rightArraySize; i++)
+		for (size_t i = 0; i < rightArraySize; i++)
 			rightArray[i] = array[middle + i + 1];
 
 		while (leftIndex < leftArraySize && rightIndex < rightArraySize)
@@ -290,7 +291,7 @@ private:
 		delete[] rightArray;
 	}
 	template<typename T, typename Pred>
-	static void InternalMergeSort(T* array, unsigned int begin, unsigned int end, Pred predicate)
+	static void InternalMergeSort(T* array, size_t begin, size_t end, Pred predicate)
 	{
 		if (begin < end)
 		{
@@ -308,12 +309,12 @@ private:
 	template<typename T, typename Pred>
 	static void InternalShellSort(T* array, size_t size, Pred predicate)
 	{
-		unsigned int j;
+		size_t j;
 		T key;
 
-		for (unsigned int gap = size / 2; gap > 0; gap /= 2)
+		for (size_t gap = size / 2; gap > 0; gap /= 2)
 		{
-			for (unsigned int i = gap; i < size; i++)
+			for (size_t i = gap; i < size; i++)
 			{
 				j = i;
 				key = array[i];
@@ -333,10 +334,10 @@ private:
 	template<typename T, typename Pred>
 	static void InternalInsertionSort(T* array, size_t size, Pred predicate)
 	{
-		unsigned int j;
+		size_t j;
 		T key;
 
-		for (unsigned int i = 0; i < size; i++)
+		for (size_t i = 0; i < size; i++)
 		{
 			j = i;
 			key = array[i];
@@ -355,12 +356,12 @@ private:
 	template<typename T, typename Pred>
 	static void InternalSelectionSort(T* array, size_t size, Pred predicate)
 	{
-		unsigned int lastSortedIndex = 0;
-		unsigned int currentMostSuitableIndex = 0;
+		size_t lastSortedIndex = 0;
+		size_t currentMostSuitableIndex = 0;
 
 		while (lastSortedIndex != size - 1)
 		{
-			for (unsigned int i = lastSortedIndex + 1; i < size; i++)
+			for (size_t i = lastSortedIndex + 1; i < size; i++)
 			{
 				if (predicate(array[i], array[currentMostSuitableIndex]))
 					currentMostSuitableIndex = i;
@@ -374,17 +375,17 @@ private:
 	/*------------------------------------------------------------------------------------------------*/
 
 	/*-------------BUBBLE SORT (AVERAGE TIME COMPLEXITY: O(N^2), SPACE COMPLEXITY: O(1))--------------*/
-	template<typename T>
-	static void InternalBubbleSort(T* array, size_t size)
+	template<typename T, typename Pred>
+	static void InternalBubbleSort(T* array, size_t size, Pred predicate)
 	{
 		bool unsorted = true;
-		unsigned int maxSortedIndex = size;
+		size_t maxSortedIndex = size;
 
 		while (unsorted)
 		{
 			unsorted = false;
 
-			for (unsigned int i = 1; i < maxSortedIndex; i++)
+			for (size_t i = 1; i < maxSortedIndex; i++)
 			{
 				if (predicate(array[i], array[i - 1]))
 				{
@@ -404,7 +405,7 @@ private:
 	{
 		int begin = 0;
 		int end = (int)size;
-		unsigned int middle;
+		size_t middle;
 
 		while (begin <= end)
 		{
@@ -429,8 +430,8 @@ private:
 		std::vector<T> result;
 		result.reserve(size1 >= size2 ? size1 : size2);
 
-		unsigned int i = 0;
-		unsigned int j = 0;
+		size_t i = 0;
+		size_t j = 0;
 
 		while (i < size1 && j < size2)
 		{
@@ -465,8 +466,8 @@ private:
 	{
 		std::vector<T> result;
 
-		unsigned int i = 0;
-		unsigned int j = 0;
+		size_t i = 0;
+		size_t j = 0;
 
 		while (i < size1 && j < size2)
 		{
